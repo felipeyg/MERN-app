@@ -2,9 +2,9 @@
 
 html,
 body,
-#root,
-.app{
+#toor,
+.app {
   height: 100%;
   width: 100%;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
 }
