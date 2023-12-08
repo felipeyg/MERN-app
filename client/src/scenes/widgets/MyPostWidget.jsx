@@ -150,7 +150,7 @@ const MyPostWidget = ({ picturePath }) => {
           </>
         ) : (
         <FlexBetween gap= "0.25">
-          MoreHorizOutlined sx {{ color: mediumMain }} />
+          <MoreHorizOutlined sx={{ color: mediumMain }} />
         </FlexBetween>
         )}
         <Button
