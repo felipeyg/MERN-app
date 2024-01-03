@@ -1,4 +1,9 @@
-import { ChatBubbleOutlineOutlined, FavoriteBorderOutlined, FavoriteOutlined, ShareOutlined } from "@mui/icons-material";
+import {
+  ChatBubbleOutlineOutlined,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ShareOutlined,
+} from "@mui/icons-material";
 import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
@@ -7,7 +12,17 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 
-const PostWidget = ({ postId, postUserId, name, description, location, picturePath, userPicturePath, likes, comments }) => {
+const PostWidget = ({
+  postId,
+  postUserId,
+  name,
+  description,
+  location,
+  picturePath,
+  userPicturePath,
+  likes,
+  comments,
+}) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
@@ -71,15 +86,12 @@ const PostWidget = ({ postId, postUserId, name, description, location, picturePa
             </IconButton>
             <Typography>{comments.length}</Typography>
           </FlexBetween>
-
         </FlexBetween>
 
         <IconButton>
-        <ShareOutlined />
-      </IconButton>
-
+          <ShareOutlined />
+        </IconButton>
       </FlexBetween>
-      
       {isComments && (
         <Box mt="0.5rem">
           {comments.map((comment, i) => (
@@ -90,10 +102,11 @@ const PostWidget = ({ postId, postUserId, name, description, location, picturePa
               </Typography>
             </Box>
           ))}
+          <Divider />
         </Box>
       )}
     </WidgetWrapper>
-  )
-}
+  );
+};
 
-export default PostWidget
+export default PostWidget;
