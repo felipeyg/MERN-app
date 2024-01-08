@@ -3,9 +3,9 @@ import {
   Box,
   Button,
   TextField,
+  useMediaQuery,
   Typography,
   useTheme,
-  useMediaQuery
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -44,39 +44,39 @@ const initialValuesRegister = {
 const initialValuesLogin = {
   email: "",
   password: "",
-}
+};
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isNonMobile = useMediaQuery("(min-width: 600px)");
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
 
-const register = async (values, onSubmitProps) => {
-  // this allows us to send form info with image
-  const formData = new FormData();
-  for (let value in values) {
-    formData.append(value, values[value]);
-  }
-  formData.append("picturePath", values.picture.name);
-
-  const savedUserResponse = await fetch(
-    "http://localhost:3001/auth/register",
-    {
-      method: "POST",
-      body: formData,
+  const register = async (values, onSubmitProps) => {
+    // this allows us to send form info with image
+    const formData = new FormData();
+    for (let value in values) {
+      formData.append(value, values[value]);
     }
-  );
-  const savedUser = await savedUserResponse.json();
-  onSubmitProps.resetForm();
+    formData.append("picturePath", values.picture.name);
 
-  if (savedUser) {
-    setPageType("login");
-  }
-};
+    const savedUserResponse = await fetch(
+      "http://localhost:3001/auth/register",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const savedUser = await savedUserResponse.json();
+    onSubmitProps.resetForm();
+
+    if (savedUser) {
+      setPageType("login");
+    }
+  };
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
@@ -95,16 +95,16 @@ const register = async (values, onSubmitProps) => {
       );
       navigate("/home");
     }
-  }
+  };
 
-  const handFormSubmit = async(values, onSubmitProps) => {
+  const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
-  }
+  };
 
   return (
     <Formik
-      onSubmit={handFormSubmit}
+      onSubmit={handleFormSubmit}
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
       validationSchema={isLogin ? loginSchema : registerSchema}
     >
@@ -129,17 +129,19 @@ const register = async (values, onSubmitProps) => {
           >
             {isRegister && (
               <>
-                <TextField 
+                <TextField
                   label="First Name"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.firstName}
                   name="firstName"
-                  error={Boolean(touched.firstName) && Boolean(errors.firstName)}
+                  error={
+                    Boolean(touched.firstName) && Boolean(errors.firstName)
+                  }
                   helperText={touched.firstName && errors.firstName}
                   sx={{ gridColumn: "span 2" }}
                 />
-                <TextField 
+                <TextField
                   label="Last Name"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -149,7 +151,7 @@ const register = async (values, onSubmitProps) => {
                   helperText={touched.lastName && errors.lastName}
                   sx={{ gridColumn: "span 2" }}
                 />
-                <TextField 
+                <TextField
                   label="Location"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -159,13 +161,15 @@ const register = async (values, onSubmitProps) => {
                   helperText={touched.location && errors.location}
                   sx={{ gridColumn: "span 4" }}
                 />
-                <TextField 
+                <TextField
                   label="Occupation"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.occupation}
                   name="occupation"
-                  error={Boolean(touched.occupation) && Boolean(errors.occupation)}
+                  error={
+                    Boolean(touched.occupation) && Boolean(errors.occupation)
+                  }
                   helperText={touched.occupation && errors.occupation}
                   sx={{ gridColumn: "span 4" }}
                 />
@@ -205,29 +209,28 @@ const register = async (values, onSubmitProps) => {
               </>
             )}
 
-              <TextField 
-                label="Email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={Boolean(touched.email) && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
-                sx={{ gridColumn: "span 4" }}
-              />
-              <TextField 
-                label="Password"
-                type="password"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.password}
-                name="password"
-                error={Boolean(touched.password) && Boolean(errors.password)}
-                helperText={touched.password && errors.password}
-                sx={{ gridColumn: "span 4" }}
-              />
+            <TextField
+              label="Email"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.email}
+              name="email"
+              error={Boolean(touched.email) && Boolean(errors.email)}
+              helperText={touched.email && errors.email}
+              sx={{ gridColumn: "span 4" }}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.password}
+              name="password"
+              error={Boolean(touched.password) && Boolean(errors.password)}
+              helperText={touched.password && errors.password}
+              sx={{ gridColumn: "span 4" }}
+            />
           </Box>
-
 
           {/* BUTTONS */}
           <Box>
@@ -266,7 +269,7 @@ const register = async (values, onSubmitProps) => {
         </form>
       )}
     </Formik>
-  )
-}
+  );
+};
 
 export default Form;

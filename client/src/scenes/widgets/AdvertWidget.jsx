@@ -32,7 +32,7 @@ const AdvertWidget = () => {
         is exfoliating skin and shining like light.
       </Typography>
     </WidgetWrapper>
-  )
-}
+  );
+};
 
-export default AdvertWidget
+export default AdvertWidget;
